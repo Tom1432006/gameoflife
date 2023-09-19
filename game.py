@@ -9,14 +9,16 @@ class Game:
     checked_fields = []
     screen = None
     graphics_multiplyer = 10
+    infinite = True
 
     population = []
-    def __init__(self, field_width, field_height, checked_fields, screen, graphics_multiplyer):
+    def __init__(self, field_width, field_height, checked_fields, screen, graphics_multiplyer, infinite):
         self.field_width = field_width
         self.field_height = field_height
         self.checked_fields = checked_fields
         self.screen = screen
         self.graphics_multiplyer = graphics_multiplyer
+        self.infinite = infinite
         self.construct_field()
 
     def construct_field(self):
@@ -28,6 +30,7 @@ class Game:
     
     def step(self):
         old_board = list(self.field)
+
         for x in range(len(self.field)):
             neighbours = self.check_neighbours(x, old_board)
 
@@ -54,10 +57,67 @@ class Game:
         ]
 
         for n in directions:
-            if board[n%(self.field_width*self.field_height)] == 1:
-                neighbours += 1
+            # sides
+            if x % self.field_width == self.field_width-1 and n % self.field_width == 0: 
+                if not self.infinite: continue
+                n -= self.field_width
+            elif x % self.field_width == 0 and n % self.field_width == self.field_width-1: 
+                if not self.infinite: continue
+                n += self.field_width
+
+            # bottom and top
+            if int(x / self.field_width) == 0 and n < 0:
+                if not self.infinite: continue
+                n += self.field_width * self.field_height
+            elif int(x / self.field_width) == self.field_height-1 and n > (self.field_width * self.field_height)-1:
+                if not self.infinite: continue
+                n -= self.field_width * self.field_height
+
+            neighbours += board[n%(self.field_width*self.field_height)]
         
         return neighbours
+    
+    def showNeighbours(self, pos):
+        # get index
+        x = pos[0]
+        x = int(x/self.graphics_multiplyer)
+
+        y = pos[1]
+        y = int(y/self.graphics_multiplyer)
+
+        x = self.field_width * y + x
+
+        directions = [
+            x-self.field_width-1,
+            x-self.field_width,
+            x-self.field_width+1,
+            x-1, x+1,
+            x+self.field_width-1,
+            x+self.field_width,
+            x+self.field_width+1
+        ]
+
+        for n in directions:
+            # sides
+            if x % self.field_width == self.field_width-1 and n % self.field_width == 0: 
+                if not self.infinite: continue
+                n -= self.field_width
+            elif x % self.field_width == 0 and n % self.field_width == self.field_width-1: 
+                if not self.infinite: continue
+                n += self.field_width
+
+            # top and bottom
+            if int(x / self.field_width) == 0 and n < 0:
+                if not self.infinite: continue
+                n += self.field_width * self.field_height
+            elif int(x / self.field_width) == self.field_height-1 and n > (self.field_width * self.field_height)-1:
+                if not self.infinite: continue
+                n -= self.field_width * self.field_height
+
+            left = n % self.field_width
+            top = int(n / self.field_width)
+            rect = pygame.Rect(left*self.graphics_multiplyer, top*self.graphics_multiplyer, self.graphics_multiplyer, self.graphics_multiplyer)
+            pygame.draw.rect(self.screen, (255,0,0), rect, 1)
         
     def print_board(self):
         for n in range(len(self.field)):

@@ -1,29 +1,35 @@
 from game import Game
 import pygame
-import numpy as np
 import matplotlib.pyplot as plt
 
 pygame.init()
 
-done = False
-play = False
+######## SETTINGS ########
 board_size_x = 100
 board_size_y = 60
 graphics_multiplyer = 15
+fps = 30
+infinite = True
+
 screen_width  = board_size_x * graphics_multiplyer
 screen_height = board_size_y * graphics_multiplyer
-fps = 30
 clock = pygame.time.Clock()
+done = False
+play = False
+debug_mode = False
 
 screen = pygame.display.set_mode([screen_width, screen_height])
 pygame.display.set_caption("Game Of Life")
 
-g = Game(board_size_x, board_size_y, [], screen, graphics_multiplyer)
+g = Game(board_size_x, board_size_y, [], screen, graphics_multiplyer, infinite)
 
 frame_counter = 0
 while not done:
     screen.fill((0,0,0))
     g.print_board()
+    pos = pygame.mouse.get_pos()
+    if debug_mode:
+        g.showNeighbours(pos)
 
     # event handeling
     for event in pygame.event.get():
@@ -38,6 +44,18 @@ while not done:
             if event.key == pygame.K_a:
                 g.random()
                 play = False
+            if event.key == pygame.K_d:
+                debug_mode = not debug_mode
+            if event.key == pygame.K_1:
+                fps = 10
+            if event.key == pygame.K_2:
+                fps = 20
+            if event.key == pygame.K_3:
+                fps = 30
+            if event.key == pygame.K_4:
+                fps = 40
+            if event.key == pygame.K_5:
+                fps = 50
             if event.key == pygame.K_s:
                 if play:
                     play = False
