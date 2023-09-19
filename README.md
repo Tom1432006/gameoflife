@@ -2,8 +2,9 @@
 ---
 
 ## Settings in main.py
-The settings can be found under the ´´´SETTINGS´´´ comment in the main.py file.
+The settings can be found under the ```SETTINGS``` comment in the main.py file.
 
+| ---- | ---- | 
 | board_size_x | Controls the number of cells in the **x** direction |
 | board_size_y | Controls the number of cells in the **y** direction |
 | graphics_multiplyer | Controls the width of one cell per pixel |
@@ -12,6 +13,7 @@ The settings can be found under the ´´´SETTINGS´´´ comment in the main.py 
 
 ## Keyboard shortcuts
 
+| ---- | ---- | 
 | s | start the simulation |
 | r | reset |
 | a | give every cell a random state |
