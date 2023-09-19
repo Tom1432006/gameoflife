@@ -4,6 +4,7 @@
 ## Settings in main.py
 The settings can be found under the ```SETTINGS``` comment in the main.py file.
 
+| Key | x | 
 | ---- | ---- | 
 | board_size_x | Controls the number of cells in the **x** direction |
 | board_size_y | Controls the number of cells in the **y** direction |
@@ -13,6 +14,7 @@ The settings can be found under the ```SETTINGS``` comment in the main.py file.
 
 ## Keyboard shortcuts
 
+| Key | x | 
 | ---- | ---- | 
 | s | start the simulation |
 | r | reset |
