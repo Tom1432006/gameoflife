@@ -1,6 +1,6 @@
 from game import Game
 import pygame
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 pygame.init()
 
@@ -9,7 +9,7 @@ board_size_x = 100
 board_size_y = 60
 graphics_multiplyer = 15
 fps = 30
-infinite = True
+infinite = False
 
 screen_width  = board_size_x * graphics_multiplyer
 screen_height = board_size_y * graphics_multiplyer
@@ -56,6 +56,10 @@ while not done:
                 fps = 40
             if event.key == pygame.K_5:
                 fps = 50
+            if event.key == pygame.K_i:
+                infinite = not infinite
+                g.infinite = infinite
+                g.reset()
             if event.key == pygame.K_s:
                 if play:
                     play = False
@@ -78,12 +82,12 @@ while not done:
 pygame.quit()
 
 
-x = g.population
-y = [n for n in range(len(x))]
+# x = g.population
+# y = [n for n in range(len(x))]
 
-plt.bar(y, x, width=1)
-plt.legend()
-plt.xlabel('time')
-plt.ylabel('population')
-plt.title("Population per time")
-plt.show()
+# plt.bar(y, x, width=1)
+# plt.legend()
+# plt.xlabel('time')
+# plt.ylabel('population')
+# plt.title("Population per time")
+# plt.show()

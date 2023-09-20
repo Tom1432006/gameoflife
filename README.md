@@ -18,6 +18,7 @@ The settings can be found under the ```SETTINGS``` comment in the main.py file.
 | s | start the simulation |
 | r | reset |
 | a | give every cell a random state |
+| i | change infinite |
 | d | turn on debug mode |
 | q | Quit |
 | 1-5 | Change the fps from 10 to 50 |
